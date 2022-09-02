@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,7 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("ru.project")
 @EnableWebMvc
-        //@PropertySource("classpath:database.properties")
+@PropertySource("classpath:database.properties")
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
@@ -57,10 +58,10 @@ public class SpringConfig implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("1983");
+        dataSource.setDriverClassName("${database.Driver}");
+        dataSource.setUrl("${database.Url}");
+        dataSource.setUsername("${database.Username}");
+        dataSource.setPassword("${database.Password}");
         return dataSource;
     }
 
